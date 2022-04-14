@@ -111,8 +111,11 @@ function AuthProvider({ children }: AuthProviderData) {
       // call startAsync with authUrl
     } catch (error) {
       // throw an error
+
+      throw new Error();
     } finally {
       // set isLoggingIn to false
+      setIsLoggingIn(false);
     }
   }
 
