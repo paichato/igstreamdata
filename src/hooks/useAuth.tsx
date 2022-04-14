@@ -80,7 +80,7 @@ function AuthProvider({ children }: AuthProviderData) {
           throw new Error("Invalid state value");
         }
 
-        api.defaults.headers.authorization = `Bearer ${authResponse}`;
+        api.defaults.headers.authorization = `Bearer ${authResponse.params.access_token}`;
         const userResponse = await api.get("/users");
         setUser({
           id: userResponse.data.data[0].id,
