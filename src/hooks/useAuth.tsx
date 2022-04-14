@@ -79,6 +79,17 @@ function AuthProvider({ children }: AuthProviderData) {
         if (authResponse.params.state !== STATE) {
           throw new Error("Invalid state value");
         }
+
+        api.defaults.headers.authorization = `Bearer ${authResponse}`;
+        const userResponse = await api.get("/users");
+        setUser({
+          id: userResponse.data.data[0].id,
+          display_name: userResponse.data.data[0].display_name,
+          email: userResponse.data.data[0].email,
+          profile_image_url: userResponse.data.data[0].profile_image_url,
+        });
+
+        setUserToken(authResponse.params.access_token);
         // verify if startAsync response.type equals "success" and response.params.error differs from "access_denied"
         // if true, do the following:
 
